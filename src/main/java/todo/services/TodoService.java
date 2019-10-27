@@ -1,6 +1,7 @@
 package todo.services;
 
 import todo.dao.TodoDAO;
+import todo.models.Todo;
 import todo.models.TodoList;
 
 public class TodoService {
@@ -12,5 +13,9 @@ public class TodoService {
 
     public TodoList getAll() {
         return todoDAO.findAll();
+    }
+
+    public void save(Todo todo) {
+        todoDAO.save(todo);
     }
 }

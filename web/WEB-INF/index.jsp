@@ -10,6 +10,13 @@
                     <li>${todo.task}</li>
                 </c:forEach>
             </ul>
+
+
+            <form action="/" method="post">
+                todo: <input type="text" name="todo">
+                <input type="submit" value="todo登録">
+            </form>
         </jsp:attribute>
     </jsp:param>
+
 </jsp:include>

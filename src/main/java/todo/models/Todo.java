@@ -9,6 +9,10 @@ public class Todo implements Serializable {
 
     public Todo() {}
 
+    public Todo(String task) {
+        this.task = task;
+    }
+
     public Todo(int id, String task) {
         this.id = id;
         this.task = task;

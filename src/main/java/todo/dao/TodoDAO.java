@@ -14,14 +14,17 @@ public class TodoDAO {
 
     private String databasePassword;
 
+    public TodoDAO() {
+        databaseUrl = "jdbc:mysql://localhost/jsp-todo";
+        databaseUser = "root";
+        databasePassword = "";
+    }
+
     public TodoList findAll() {
 //        Dotenv dotenv = Dotenv.load();
 //        databaseUrl = dotenv.get("DB_URL");
 //        databaseUser = dotenv.get("DB_USER");
 //        databasePassword = dotenv.get("DB_PASSWORD");
-        databaseUrl = "jdbc:mysql://localhost/jsp-todo";
-        databaseUser = "root";
-        databasePassword = "";
         TodoList todoList = new TodoList();
         Connection connection = null;
 
@@ -52,5 +55,30 @@ public class TodoDAO {
         }
 
         return todoList;
+    }
+
+    public void save(Todo todo) {
+        Connection connection = null;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            connection = DriverManager.getConnection(databaseUrl, databaseUser, databasePassword);
+
+            String sql = "insert into todo (task) values (?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, todo.getTask());
+            statement.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
