@@ -1,5 +1,6 @@
 package todo.dao;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import todo.models.User;
 
 import java.sql.*;
@@ -16,6 +17,13 @@ public class UserDAO {
         databaseUrl = "jdbc:mysql://localhost/jsp-todo";
         databaseUser = "root";
         databasePassword = "";
+
+        Dotenv dotenv = Dotenv.configure().directory("/").ignoreIfMissing().load();
+        if (dotenv.get("DB_URL") != null) {
+            databaseUrl = dotenv.get("DB_URL");
+            databaseUser = dotenv.get("DB_USER");
+            databasePassword = dotenv.get("DB_PASSWORD");
+        }
     }
 
     public User getByEmail(User searchUser) {

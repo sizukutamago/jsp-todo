@@ -1,6 +1,6 @@
 package todo.dao;
 
-//import io.github.cdimascio.dotenv.Dotenv;
+import io.github.cdimascio.dotenv.Dotenv;
 import todo.models.Todo;
 import todo.models.TodoList;
 
@@ -21,10 +21,12 @@ public class TodoDAO {
     }
 
     public TodoList findAll() {
-//        Dotenv dotenv = Dotenv.load();
-//        databaseUrl = dotenv.get("DB_URL");
-//        databaseUser = dotenv.get("DB_USER");
-//        databasePassword = dotenv.get("DB_PASSWORD");
+        Dotenv dotenv = Dotenv.configure().directory("/").ignoreIfMissing().load();
+        if (dotenv.get("DB_URL") != null) {
+            databaseUrl = dotenv.get("DB_URL");
+            databaseUser = dotenv.get("DB_USER");
+            databasePassword = dotenv.get("DB_PASSWORD");
+        }
         TodoList todoList = new TodoList();
         Connection connection = null;
 
